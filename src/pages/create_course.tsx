@@ -102,7 +102,7 @@ const CreateCourse = () => {
     });
   };
 
-  const watchingInputText = (event: KeyboardEvent) => {
+  const watchingInputText = (event: any) => {
     if (event.keyCode === 13) {
       console.log('keyCode');
       handleSubmit();

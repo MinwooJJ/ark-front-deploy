@@ -1,5 +1,4 @@
-import { all, call, delay, fork, put, takeLatest, throttle } from '@redux-saga/core/effects';
-import axios from 'axios';
+import { all, delay, fork, put, takeLatest, throttle } from '@redux-saga/core/effects';
 import { dummyLectureEditData, generateDummyLectureList, mainSliderData } from 'src/api/dummyData';
 import {
   CREATE_LECTURE_FAILURE,
@@ -18,30 +17,29 @@ import {
   SAVE_COURSE_INFO_FAILURE,
   SAVE_COURSE_INFO_SUCCESS,
 } from '../reducers/lecture';
-import { IAction } from '../reducers/types';
 
 // Load all lectures
-function loadAllLecturesAPI() {
-  return axios.get(`/api/allLectures`);
-}
+// function loadAllLecturesAPI() {
+//   return axios.get(`/api/allLectures`);
+// }
 
-// create lecture
-async function postCreateLecture(title: string) {
-  console.log('title', title);
-  const param = {
-    title,
-  };
-  const result = await axios.post('http://localhost:4000/create_course', param);
-  return result;
-}
+// // create lecture
+// async function postCreateLecture(title: string) {
+//   console.log('title', title);
+//   const param = {
+//     title,
+//   };
+//   const result = await axios.post('http://localhost:4000/create_course', param);
+//   return result;
+// }
 
 // save course info (중간 저장 : 저장 후 다음이동)
-async function postSaveCourseInfo(data) {
-  const result = await axios.post('http://3.34.236.174/api/v1/save/course_info', data);
-  return result; // Redundant use of `await` on a return value.eslintno-return-await
-}
+// async function postSaveCourseInfo(data) {
+//   const result = await axios.post('http://3.34.236.174/api/v1/save/course_info', data);
+//   return result; // Redundant use of `await` on a return value.eslintno-return-await
+// }
 
-function* loadMainPage(action) {
+function* loadMainPage() {
   try {
     // const result = yield call(loadAllLecturesAPI, action.data);
     yield delay(1000);
@@ -49,7 +47,7 @@ function* loadMainPage(action) {
       type: LOAD_ALL_LECTURES_SUCCESS,
       data: generateDummyLectureList(10),
     });
-  } catch (err) {
+  } catch (err: any) {
     yield put({
       type: LOAD_ALL_LECTURES_FAILURE,
       error: err.response.data,
@@ -57,7 +55,7 @@ function* loadMainPage(action) {
   }
 }
 
-function* loadSlider(action) {
+function* loadSlider() {
   try {
     // call 로 API 사용해야 함
     // const result = yield call('api/loadSlider')
@@ -66,7 +64,7 @@ function* loadSlider(action) {
       type: LOAD_SLIDER_SUCCESS,
       data: mainSliderData,
     });
-  } catch (err) {
+  } catch (err: any) {
     yield put({
       type: LOAD_SLIDER_FAILURE,
       error: err.response.data,
@@ -74,7 +72,7 @@ function* loadSlider(action) {
   }
 }
 
-function* createLecture(action: IAction): any {
+function* createLecture() {
   // any를 type 제대로 수정해야 됨
   try {
     // const result = yield call(postCreateLecture, action.data);
@@ -107,7 +105,7 @@ function* loadEditPage() {
   }
 }
 
-function* saveCourseInfo(action: IAction) {
+function* saveCourseInfo() {
   try {
     // const result = yield call(() => postSaveCourseInfo(action.data), action.data);
     yield delay(1000);

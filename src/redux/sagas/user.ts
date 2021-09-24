@@ -1,4 +1,4 @@
-import { all, call, delay, fork, put, takeLatest } from '@redux-saga/core/effects';
+import { all, delay, fork, put, takeLatest } from '@redux-saga/core/effects';
 // import axios from 'axios';
 import { LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE } from 'src/redux/reducers/user';
 import { IAction } from '../reducers/types';
@@ -17,7 +17,7 @@ function* login(action: IAction) {
       data: action.data,
       // data: result.data
     });
-  } catch (err) {
+  } catch (err: any) {
     yield put({
       type: LOG_IN_FAILURE,
       error: err.response.data,

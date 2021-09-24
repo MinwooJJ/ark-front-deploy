@@ -62,7 +62,7 @@ export const dummyUser: IUser = {
 export const generateDummyLectureList = (num: number): ILecture[] =>
   Array(num)
     .fill('')
-    .map((_, index) => ({
+    .map(() => ({
       id: shortId.generate(),
       coverImage: faker.image.image(),
       title: faker.name.title(),
