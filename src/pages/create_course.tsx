@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, KeyboardEventHandler, KeyboardEvent } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -102,8 +102,8 @@ const CreateCourse = () => {
     });
   };
 
-  const watchingInputText = (event: any) => {
-    if (event.keyCode === 13) {
+  const watchingInputText: KeyboardEventHandler<HTMLInputElement> = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
       console.log('keyCode');
       handleSubmit();
     }
